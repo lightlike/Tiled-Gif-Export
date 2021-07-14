@@ -27,3 +27,4 @@ Here are all the values:
 - [ ] ignoring UI when using arguments
 - [ ] proper error handling
 - [ ] Build Pipeline for Pyinstaller
+- [ ] Icon for executable
