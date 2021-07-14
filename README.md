@@ -22,7 +22,7 @@ Here are all the values:
 
 `magick -delay {x/10} -loop 0 *.png {outfile}`
 
-## Planned
+## Stuff that I need to do
 
 - [ ] ignoring UI when using arguments
 - [ ] proper error handling
