@@ -8,8 +8,11 @@ Requirements:
 
 A `config.ini` gets generated automatically.
 
-If you do not have Tiled or ImageMagick in $PATH, you need to change the paths in that config.
-Frame time is set to 100 ms by default. You can update this accordingly. The value has to be cleanly devisible by 10 to work the way I wrote it.
+Here are all the values:
+- `tmxrasterizer`: path to the Tiled `tmxrasterizer.exe` (you will probably need to edit this)
+- `magick`: path to the ImageMagick `maghick.exe` or `convert.exe` (should be in PATH if selected during install)
+- `frametime`: time between animation frames in ms (default: 100ms). The value has to be cleanly devisible by 10 to work the way I wrote it.
+- `tempdir`: name of the temporary directory to create the frames in (should not need to be changed but does not really matter) 
 
 ## Basic Commands used
 
@@ -18,3 +21,8 @@ Frame time is set to 100 ms by default. You can update this accordingly. The val
 `tmxrasterizer --advance-animations {x+1} "{Tiled-File}" "{Png Files}"`
 
 `magick -delay {x/10} -loop 0 *.png {outfile}`
+
+## Planned
+
+- [ ] ignoring UI when using arguments
+- [ ] proper error handling
