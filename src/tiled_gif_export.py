@@ -16,3 +16,6 @@ generateFrames(settings)
 generateGif(settings)
 
 shutil.rmtree(settings.temp)
+
+if not settings.console:
+    input('Press ENTER to exit')

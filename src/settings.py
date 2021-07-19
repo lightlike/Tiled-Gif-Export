@@ -25,7 +25,9 @@ class Settings:
         with open('config.ini', 'w') as configfile:
             config.write(configfile)
 
-        print("Config Generated. Exiting...")
+        print("Config Generated. Please edit and restart this program.")
+        if not settings.console:
+            input('Press ENTER to exit')
         exit()
 
     def parseSettings(self):
