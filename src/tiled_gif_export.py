@@ -1,16 +1,19 @@
 import shutil
-import tkinter as tk
+import sys
 
 from settings import Settings
-from ui import getMissingSettings
 from command_caller import *
-
-root = tk.Tk()
-root.withdraw()
+from ui import UI
 
 settings = Settings()
-if not settings.console:
-    settings = getMissingSettings(settings)
+
+if len(sys.argv) > 1:
+    settings.parseArgs()
+else:
+    ui = UI()
+    isSubmit = ui.showSettingsForm(settings)
+    if not isSubmit:
+        exit()
 
 generateFrames(settings)
 generateGif(settings)
