@@ -26,17 +26,14 @@ magick = magick                 ; path to the ImageMagick `magick.exe` or `conve
 ### Console
 
 Run one of these commands:
-- `tiled_gif_export.exe -c ...`
-- `python tiled_gif_export.py -c ...`
-
--c is required to not get any UI elements overwriting the console arguments
+- `tiled_gif_export.exe ...`
+- `python tiled_gif_export.py ...`
 
 ```
-usage: tiled_gif_export.py [-h] [-c] [-r RASTERIZER] [-m MAGICK] [--temp TEMP] [-d DURATION] [-n FRAMES] [-f FILE] [-o OUTPUT]
+usage: tiled_gif_export.py [-h] [-r RASTERIZER] [-m MAGICK] [--temp TEMP] -d DURATION -n FRAMES -f FILE -o OUTPUT
 
 optional arguments:
   -h, --help            show this help message and exit
-  -c, --console         Block UI from showing up
   -r RASTERIZER, --rasterizer RASTERIZER
                         Path to tmxrasterizer
   -m MAGICK, --magick MAGICK
@@ -45,7 +42,7 @@ optional arguments:
   -d DURATION, --duration DURATION
                         Frame duration in ms (has to be devisible by 10)
   -n FRAMES, --frames FRAMES
-                        Number if Frames to render
+                        Number of Frames to render
   -f FILE, --file FILE  Input file (Tiled file '.tmx' or '.world'
   -o OUTPUT, --output OUTPUT
                         Output file (.gif)
@@ -55,13 +52,13 @@ optional arguments:
 
 `x: frame duration`
 
-`tmxrasterizer --advance-animations {x+1} "{Tiled-File}" "{Png Files}"`
+`tmxrasterizer --advance-animations {x+1} "{Tiled-File}" "{PNG Files}"`
 
 `magick -delay {x/10} -loop 0 *.png {outfile}`
 
 ## Stuff that I need to do
 
 - [x] ignoring UI when using arguments
-- [ ] proper error handling
+- [x] proper error handling (mostly?)
 - [ ] Build Pipeline for Pyinstaller
 - [ ] Icon for executable

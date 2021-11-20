@@ -3,12 +3,53 @@ import configparser
 import os
 from os.path import exists
 
+def isNoneOrEmpty(value):
+    return value is None or str(value) == ''
 
 class Settings:
+    rasterizer = None
+    magick = None
+    temp = None
+    
+    file = None
+    output = None
+
+    def _get_duration(self):
+        return self.__duration
+    def _set_duration(self, value):
+        if not isinstance(value, int):
+            raise TypeError("bar must be set to an integer")
+        self.__duration = value
+    duration = property(_get_duration, _set_duration)
+    def _get_frames(self):
+        return self.__frames
+    def _set_frames(self, value):
+        if not isinstance(value, int):
+            raise TypeError("bar must be set to an integer")
+        self.__frames = value
+    frames = property(_get_frames, _set_frames)
+
     def __init__(self):
         if not exists('config.ini'):
             self.generateConfig()
-        self.parseSettings()
+        self.loadFromFile()
+
+    def isValid(self) -> bool:
+        return (not isNoneOrEmpty(self.rasterizer)
+            and not isNoneOrEmpty(self.magick)
+            and not isNoneOrEmpty(self.temp)
+            and not isNoneOrEmpty(self.duration)
+            and not isNoneOrEmpty(self.frames)
+            and not isNoneOrEmpty(self.file)
+            and not isNoneOrEmpty(self.output))
+
+    def loadFromFile(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+
+        self.rasterizer = config['TOOLPATHS']['tmxrasterizer']
+        self.magick = config['TOOLPATHS']['magick']
+        self.temp = config['SETTINGS']['tempdir']
 
     def generateConfig(self):
         config = configparser.ConfigParser()
@@ -30,39 +71,33 @@ class Settings:
             input('Press ENTER to exit')
         exit()
 
-    def parseSettings(self):
-        config = configparser.ConfigParser()
-        config.read('config.ini')
-
+    def parseArgs(self):
         parser = argparse.ArgumentParser()
 
-        parser.add_argument('-c', '--console', action='store_true',
-            help = "Block UI from showing up")
-
         parser.add_argument("-r", "--rasterizer",
-            default = config['TOOLPATHS']['tmxrasterizer'],
+            default = self.rasterizer,
             help = "Path to tmxrasterizer")
         parser.add_argument("-m", "--magick",
-            default = config['TOOLPATHS']['magick'],
+            default = self.magick,
             help = "Path to magick/convert")
         parser.add_argument("--temp",
-            default = config['SETTINGS']['tempdir'],
+            default = self.temp,
             help = "Temporary Directory")
 
         parser.add_argument("-d", "--duration",
-            default = 100, type = int,
+            type = int, required=True,
             help = "Frame duration in ms (has to be devisible by 10)")
         parser.add_argument("-n", "--frames",
-            type = int,
-            help = "Number if Frames to render")
+            type = int, required=True,
+            help = "Number of Frames to render")
         parser.add_argument("-f", "--file",
+            required=True,
             help = "Input file (Tiled file '.tmx' or '.world'")
         parser.add_argument("-o", "--output",
+            required=True,
             help = "Output file (.gif)")
 
         args = parser.parse_args()
-
-        self.console = args.console
 
         self.rasterizer = args.rasterizer
         self.magick = args.magick

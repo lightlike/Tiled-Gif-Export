@@ -1,5 +1,9 @@
 /*.spec
-/config.ini
 /build
 /dist
 __pycache__
+
+# project specific
+/temp
+magick-*
+config.ini
