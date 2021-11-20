@@ -10,17 +10,31 @@ class Settings:
     rasterizer = None
     magick = None
     temp = None
-    duration = None
-    frames = None
+    
     file = None
     output = None
+
+    def _get_duration(self):
+        return self.__duration
+    def _set_duration(self, value):
+        if not isinstance(value, int):
+            raise TypeError("bar must be set to an integer")
+        self.__duration = value
+    duration = property(_get_duration, _set_duration)
+    def _get_frames(self):
+        return self.__frames
+    def _set_frames(self, value):
+        if not isinstance(value, int):
+            raise TypeError("bar must be set to an integer")
+        self.__frames = value
+    frames = property(_get_frames, _set_frames)
 
     def __init__(self):
         if not exists('config.ini'):
             self.generateConfig()
         self.loadFromFile()
 
-    def isValid(self):
+    def isValid(self) -> bool:
         return (not isNoneOrEmpty(self.rasterizer)
             and not isNoneOrEmpty(self.magick)
             and not isNoneOrEmpty(self.temp)

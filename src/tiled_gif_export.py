@@ -15,10 +15,12 @@ else:
     if not isSubmit:
         exit()
 
+print("Generating Frames")
 generateFrames(settings)
+print("Packing Gif")
 generateGif(settings)
-
+print("finished generating. Cleaning up.")
 shutil.rmtree(settings.temp)
 
-if not settings.console:
+if not len(sys.argv) > 1:
     input('Press ENTER to exit')

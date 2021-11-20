@@ -22,7 +22,7 @@ def generateFrames(settings: Settings):
         subprocess.run(execute)
 
 def generateGif(settings: Settings):
-    command = "{exe} -delay {delay} -loop 0 {files} \"{outfile}\""
+    command = "{exe} -delay {delay} -dispose previous -loop 0 {files} \"{outfile}\""
     
     exe = settings.magick
     tempdir = settings.temp
