@@ -56,6 +56,12 @@ optional arguments:
 
 `magick -delay {x/10} -loop 0 *.png {outfile}`
 
+## Discussions
+
+[![Gitter](https://img.shields.io/gitter/room/lightlike/tiled-gif-export.svg?style=flat-square)](https://gitter.im/lightlike/Tiled-Gif-Export?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+Or join using [Matrix](https://matrix.to/#/#lightlike_Tiled-Gif-Export:gitter.im)
+
 ## Stuff that I need to do
 
 - [x] ignoring UI when using arguments
