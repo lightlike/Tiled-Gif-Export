@@ -18,7 +18,7 @@
 
 ## Usage
 
-Important: `frametime`: time between animation frames in ms (default: 100ms). The value has to be cleanly devisible by 10 to work the way I wrote it.
+Important: `frametime` is the time between animation frames in ms (default: 100ms). The value has to be cleanly devisible by 10 to work the way I wrote it.
 
 ### With UI
 
