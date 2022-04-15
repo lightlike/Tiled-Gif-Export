@@ -1,16 +1,24 @@
 # Tiled-Gif-Export
 
-## Setup
-
-Requirements:
+## Requirements:
 - [Tiled Editor](https://www.mapeditor.org/)
 - [ImageMagick](https://imagemagick.org/index.php)
 
+## Download
+
+### Windows
+
+[Single Executable](https://github.com/lightlike/Tiled-Gif-Export/releases/latest/download/tiled_gif_export.exe)
+
+### All Systems
+
+1. download or clone the repository
+2. execute `python ./src/tiled_gif_export.py`
+3. see [Usage](#Usage)
+
 ## Usage
 
-### Important
-
-- `frametime`: time between animation frames in ms (default: 100ms). The value has to be cleanly devisible by 10 to work the way I wrote it.
+Important: `frametime`: time between animation frames in ms (default: 100ms). The value has to be cleanly devisible by 10 to work the way I wrote it.
 
 ### With UI
 
