@@ -6,26 +6,8 @@ on:
       - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
-  create_release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Release
-        id: create_release_step
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-      - name: Set output
-        run: echo "{upload_url}={${{ steps.create_release_step.outputs.upload_url }}}" >> $GITHUB_OUTPUT
-
   build:
     name: Build packages
-    needs: create_release
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -65,13 +47,11 @@ jobs:
           pip install pyinstaller
       - name: Build with pyinstaller for ${{matrix.TARGET}}
         run: ${{matrix.CMD_BUILD}}
-      - name: Upload Release Assets
-        id: upload-release-assets
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./dist/${{ matrix.OUT_FILE_NAME }}
-          asset_name: ${{ matrix.OUT_FILE_NAME }}
-          asset_content_type: ${{ matrix.ASSET_MIME }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./dist/${{ matrix.OUT_FILE_NAME }}
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "This is my release text"
