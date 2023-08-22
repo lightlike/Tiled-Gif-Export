@@ -24,7 +24,7 @@ jobs:
           - os: windows-latest
             TARGET: windows
             CMD_BUILD: >
-              pyinstaller -w -n tiled_gif_export src/tiled_gif_export.py &&
+              pyinstaller -n tiled_gif_export src/tiled_gif_export.py &&
               cd dist &&
               tar.exe -a -c -f "tiled_gif_export (windows).zip" -C tiled_gif_export *
             OUT_FILE_NAME: tiled_gif_export (windows).zip

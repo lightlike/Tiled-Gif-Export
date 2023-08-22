@@ -6,9 +6,11 @@
 
 ## Download
 
-### Windows
-
-[Single Executable](https://github.com/lightlike/Tiled-Gif-Export/releases/latest/download/tiled_gif_export.exe)
+| OS                                                                                                             | Type  |
+| :------------------------------------------------------------------------------------------------------------- | :---: |
+| [Windows](https://github.com/lightlike/Tiled-Gif-Export/releases/latest/download/tiled_gif_export.windows.zip) |  Zip  |
+| [Mac](https://github.com/lightlike/Tiled-Gif-Export/releases/latest/download/tiled_gif_export.mac.zip)         |  Zip  |
+| [Linux](https://github.com/lightlike/Tiled-Gif-Export/releases/latest/download/tiled_gif_export)               |  Exe  |
 
 ### All Systems
 
@@ -26,7 +28,7 @@ Important: `frametime` is the time between animation frames in ms (default: 100m
 2. Edit the `config.ini`
 ```ini
 [TOOLPATHS]
-tmxrasterizer = tmxrasterizer   ; path to the Tiled `tmxrasterizer.exe` (you will probably need to edit the right side)
+tmxrasterizer = tmxrasterizer   ; path to the Tiled `tmxrasterizer.exe` (you will need to edit the right side)
 magick = magick                 ; path to the ImageMagick `magick.exe` or `convert.exe` (should be in PATH if selected during install)
 ```
 3. Start the program and everything sould work after that
