@@ -51,7 +51,7 @@ optional arguments:
                         Frame duration in ms (has to be devisible by 10)
   -n FRAMES, --frames FRAMES
                         Number of Frames to render
-  -f FILE, --file FILE  Input file (Tiled file '.tmx' or '.world'
+  -f FILE, --file FILE  Input file (Tiled file '.tmx' or '.world')
   -o OUTPUT, --output OUTPUT
                         Output file (.gif)
 ```

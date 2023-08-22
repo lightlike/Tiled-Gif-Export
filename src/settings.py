@@ -3,6 +3,7 @@ import configparser
 from dataclasses import dataclass
 import os
 from os.path import exists
+import sys
 
 @dataclass
 class Settings:
@@ -17,7 +18,7 @@ class Settings:
 
     @staticmethod
     def get_config_path() -> str:
-        return os.path.join(os.path.dirname(os.path.realpath(__file__)), "config.ini")
+        return os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), "config.ini")
 
     @classmethod
     def load_config(cls) -> 'Settings':
@@ -57,7 +58,7 @@ class Settings:
         with open(cls.get_config_path(), 'w') as configfile:
             config.write(configfile)
 
-        print("Config Generated. Please edit and restart this program.")
+        print(f"Config Generated at {cls.get_config_path()}. Please edit and restart this program.")
 
     @classmethod
     def parse_args(cls):
