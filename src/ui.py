@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-from typing import Text
 
 from settings import Settings
 
@@ -70,10 +69,6 @@ class UI:
             settings.output = outfile.get()
             settings.rasterizer = rasterizer.get()
             settings.magick = magick.get()
-
-            if not settings.isValid():
-                tk.messagebox.showwarning("Values missing", "The values entered are not valid. Try again.")
-                return
 
             self.isSubmit = True
             window.destroy()

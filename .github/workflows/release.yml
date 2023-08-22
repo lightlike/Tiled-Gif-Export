@@ -1,0 +1,74 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+  build:
+    name: Build packages
+    needs: create_release
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: macos-latest
+            TARGET: mac-os
+            CMD_BUILD: >
+              pyinstaller -F -w -n tiled_gif_export src/tiled_gif_export.py &&
+              cd dist/ &&
+              zip -r9 tiled_gif_export tiled_gif_export.app/
+            OUT_FILE_NAME: tiled_gif_export.zip
+            ASSET_MIME: application/zip
+          - os: windows-latest
+            TARGET: windows
+            CMD_BUILD: pyinstaller -F -w -n tiled_gif_export src/tiled_gif_export.py
+            OUT_FILE_NAME: tiled_gif_export.exe
+            ASSET_MIME: application/vnd.microsoft.portable-executable
+          - os: ubuntu-latest
+            TARGET: linux
+            CMD_BUILD: pyinstaller -F -w -n tiled_gif_export src/tiled_gif_export.py
+            OUT_FILE_NAME: tiled_gif_export
+            ASSET_MIME: application/x-executable
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+      - name: Build with pyinstaller for ${{matrix.TARGET}}
+        run: ${{matrix.CMD_BUILD}}
+      - name: Upload Release Assets
+        id: upload-release-assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./dist/${{ matrix.OUT_FILE_NAME }}
+          asset_name: ${{ matrix.OUT_FILE_NAME }}
+          asset_content_type: ${{ matrix.ASSET_MIME }}

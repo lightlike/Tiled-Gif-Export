@@ -74,5 +74,5 @@ Or join using [Matrix](https://matrix.to/#/#lightlike_Tiled-Gif-Export:gitter.im
 
 - [x] ignoring UI when using arguments
 - [x] proper error handling (mostly?)
-- [ ] Build Pipeline for Pyinstaller
+- [x] Build Pipeline for Pyinstaller
 - [ ] Icon for executable
